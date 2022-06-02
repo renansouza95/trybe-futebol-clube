@@ -6,6 +6,7 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    platform: linux/x86_64
     # Os `healthcheck` devem garantir que a aplicação
     # está operacional, antes de liberar o container
     healthcheck:
@@ -15,6 +16,8 @@ services:
   backend:
     build: ./backend
     # ...
+    platform: linux/x86_64
+    restart_always: true
     command: npm run dev
     volumes:
       - './backend/src:/app/src'
@@ -37,6 +40,7 @@ services:
   db:
     image: mysql:8.0.21
     container_name: db
+    platform: linux/x86_64
     ports:
       - 3002:3306
     environment:
