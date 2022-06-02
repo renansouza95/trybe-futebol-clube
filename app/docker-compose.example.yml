@@ -16,7 +16,7 @@ services:
   backend:
     build: ./backend
     platform: linux/x86_64
-    restart_always: true
+    restart: 'always'
     # ...
     depends_on:
       db:
