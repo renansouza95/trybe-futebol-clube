@@ -1,14 +1,14 @@
 import * as express from 'express';
-import Routes from './routes';
+import loginRoutes from './routes';
 
 class App {
   public app: express.Express;
-  public routes = Routes;
+  // public routes = Routes;
 
   constructor() {
     this.app = express();
     this.config();
-    this.routes(this.app);
+    this.routes();
     // chamar as rotas aqui; posso criar outro metodo com as rotas e chamar aqui
   }
 
@@ -22,6 +22,10 @@ class App {
 
     this.app.use(accessControl);
     this.app.use(express.json());
+  }
+
+  private routes():void {
+    this.app.use('/login', loginRoutes);
   }
 
   // ...

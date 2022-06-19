@@ -1,6 +1,5 @@
 import { Model, STRING } from 'sequelize';
 import db from '.';
-// import OtherModel from './OtherModel';
 
 class User extends Model {
   // public <campo>!: <tipo>;
