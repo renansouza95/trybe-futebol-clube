@@ -13,6 +13,5 @@ export default function authenticateLogin(req: Request, res: Response, next: Nex
     return res.status(401).json({ message: 'Incorrect email or password' });
   }
 
-  console.log('login autenticado');
   next();
 }
