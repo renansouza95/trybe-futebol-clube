@@ -18,6 +18,11 @@ type CreateMatch = {
   inProgress: boolean;
 };
 
+type EditMatch = {
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+};
+
 export default class MatchesService {
   public getMatches = async (): Promise<IMatch[]> => {
     const response = await Match.findAll({
@@ -59,6 +64,15 @@ export default class MatchesService {
   public patchMyMatch = async (id: string): Promise<void> => {
     await Match.update(
       { inProgress: false },
+      { where: { id: Number(id) } },
+    );
+  };
+
+  public editMatch = async (id: string, match: EditMatch): Promise<void> => {
+    await Match.update(
+      { homeTeamGoals: match.homeTeamGoals,
+        awayTeamGoals: match.awayTeamGoals,
+      },
       { where: { id: Number(id) } },
     );
   };
