@@ -2,6 +2,22 @@ import Match from '../database/models/match';
 import Team from '../database/models/team';
 import IMatch from '../interfaces/IMatch';
 
+type InsertMatch = {
+  homeTeam: number;
+  awayTeam: number;
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+};
+
+type CreateMatch = {
+  id: number;
+  homeTeam: number;
+  awayTeam: number;
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+  inProgress: boolean;
+};
+
 export default class MatchesService {
   public getMatches = async (): Promise<IMatch[]> => {
     const response = await Match.findAll({
@@ -26,5 +42,24 @@ export default class MatchesService {
     });
     if (!response) return null;
     return response;
+  };
+
+  public createMatch = async (match: InsertMatch): Promise<CreateMatch | null> => {
+    const create = await Match.create({
+      homeTeam: match.homeTeam,
+      homeTeamGoals: match.homeTeamGoals,
+      awayTeam: match.awayTeam,
+      awayTeamGoals: match.awayTeamGoals,
+      inProgress: true,
+    });
+    if (!create) return null;
+    return create;
+  };
+
+  public patchMyMatch = async (id: string): Promise<void> => {
+    await Match.update(
+      { inProgress: false },
+      { where: { id: Number(id) } },
+    );
   };
 }

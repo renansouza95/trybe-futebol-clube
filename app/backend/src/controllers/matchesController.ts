@@ -21,4 +21,24 @@ export default class MatchesController {
       return res.send(error);
     }
   };
+
+  public createMatch = async (req: Request, res: Response) => {
+    try {
+      const response = await this.matchesService.createMatch(req.body);
+      if (!response) return res.status(400).json({ message: 'Bad request' });
+      return res.status(201).json(response);
+    } catch (error) {
+      return res.send(error);
+    }
+  };
+
+  public patchMyMatch = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      await this.matchesService.patchMyMatch(id);
+      return res.status(200).json({ message: 'Finished' });
+    } catch (error) {
+      return res.send(error);
+    }
+  };
 }

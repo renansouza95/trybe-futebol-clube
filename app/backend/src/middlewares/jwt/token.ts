@@ -1,12 +1,12 @@
 import { sign, SignOptions, verify, JwtPayload } from 'jsonwebtoken';
-import * as fs from 'fs';
+import { readFileSync } from 'fs';
 
 const jwtConfig: SignOptions = {
   expiresIn: '1d',
   algorithm: 'HS256',
 };
 
-const jwtSecret: string = fs.readFileSync('jwt.evaluation.key', 'utf-8');
+const jwtSecret: string = readFileSync('jwt.evaluation.key', 'utf-8');
 
 export function generateToken(email: string) {
   return sign({ email }, jwtSecret, jwtConfig);
