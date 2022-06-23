@@ -10,6 +10,8 @@ class Match extends Model {
   public awayTeam: number;
   public awayTeamGoals: number;
   public inProgress: boolean;
+  public teamHome: { teamName: string };
+  public teamAway: { teamName: string };
 }
 
 Match.init({
